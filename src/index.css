@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+:root {
+  --bg-dark: #020914;
+  --bg-section: #061426;
+  --bg-card: rgba(10, 29, 50, 0.72);
+
+  --blue: #168cff;
+  --blue-light: #48aaff;
+  --blue-dark: #0064c8;
+
+  --text: #ffffff;
+  --text-muted: #8299b1;
+  --border: rgba(100, 180, 255, 0.12);
+
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+  background: var(--bg-dark);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+::selection {
+  background: rgba(22, 140, 255, 0.35);
+  color: #ffffff;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020914;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #14558d;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #168cff;
+}
+
+/* COMMON SECTION HEADING */
+
+.section-heading {
+  max-width: 720px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.section-heading > span {
+  display: inline-block;
+  margin-bottom: 15px;
+
+  color: var(--blue-light);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.section-heading h2 {
+  color: #ffffff;
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.section-heading h2 strong {
+  color: var(--blue-light);
+  font-weight: 800;
+}
+
+.section-heading p {
+  max-width: 650px;
+  margin: 20px auto 0;
+
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* COMMON BUTTON */
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .section-heading {
+    margin-bottom: 40px;
+  }
+
+  .section-heading h2 {
+    font-size: 34px;
+    letter-spacing: -1px;
+  }
+
+  .section-heading p {
+    font-size: 14px;
+  }
+}

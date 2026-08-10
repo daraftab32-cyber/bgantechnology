@@ -1,0 +1,110 @@
+.tech-strip {
+  position: relative;
+
+  width: 100%;
+  overflow: hidden;
+
+  padding: 18px 0;
+
+  background: #030d1b;
+
+  border-top: 1px solid rgba(72, 170, 255, 0.08);
+  border-bottom: 1px solid rgba(72, 170, 255, 0.08);
+}
+
+.tech-strip::before,
+.tech-strip::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+
+  width: 120px;
+  height: 100%;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+.tech-strip::before {
+  left: 0;
+
+  background: linear-gradient(
+    90deg,
+    #030d1b,
+    transparent
+  );
+}
+
+.tech-strip::after {
+  right: 0;
+
+  background: linear-gradient(
+    270deg,
+    #030d1b,
+    transparent
+  );
+}
+
+.tech-track {
+  display: flex;
+  width: max-content;
+
+  animation: techSlide 25s linear infinite;
+}
+
+.tech-item {
+  display: flex;
+  align-items: center;
+
+  gap: 35px;
+
+  padding: 0 25px;
+
+  white-space: nowrap;
+}
+
+.tech-item span {
+  color: #8da5bc;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+.tech-item b {
+  color: #168cff;
+
+  font-size: 12px;
+
+  text-shadow:
+    0 0 12px rgba(22, 140, 255, 0.7);
+}
+
+@keyframes techSlide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 600px) {
+  .tech-strip {
+    padding: 15px 0;
+  }
+
+  .tech-item {
+    gap: 22px;
+    padding: 0 18px;
+  }
+
+  .tech-item span {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+}
