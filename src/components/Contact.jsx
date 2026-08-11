@@ -212,7 +212,7 @@ function Contact() {
                 </span>
 
                 <p>
-                  +91 XXXXX XXXXX
+                  +91 9149592265
                 </p>
 
               </div>
@@ -314,7 +314,7 @@ function Contact() {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="+919149592265"
+                  placeholder="+91xxxxxxxxxx"
                   value={form.phone}
                   onChange={handleChange}
                 />
