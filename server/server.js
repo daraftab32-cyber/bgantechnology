@@ -1,13 +1,24 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import nodemailer from "nodemailer";
 
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
+
+// ===============================
+// MIDDLEWARE
+// ===============================
+
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
 app.use(express.json());
 
 
@@ -40,7 +51,9 @@ app.post("/api/contact", async (req, res) => {
     } = req.body;
 
 
+    // ===============================
     // BASIC VALIDATION
+    // ===============================
 
     if (!name || !email || !service || !message) {
 
@@ -53,37 +66,48 @@ app.post("/api/contact", async (req, res) => {
 
 
     // ===============================
-    // GMAIL SMTP
-    // ===============================
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-
-  family: 4,
-
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
-
-
-    // ===============================
-    // SEND EMAIL
+    // CHECK RESEND API KEY
     // ===============================
 
-    await transporter.sendMail({
+    if (!process.env.RESEND_API_KEY) {
 
-      from: `"BG Technology Website" <${process.env.GMAIL_USER}>`,
+      console.error("RESEND_API_KEY is missing.");
 
-      to: process.env.GMAIL_USER,
+      return res.status(500).json({
+        success: false,
+        message: "Email service is not configured.",
+      });
 
-      replyTo: email,
+    }
 
-      subject: `New Project Enquiry - ${name}`,
 
-      text: `
+    // ===============================
+    // SEND EMAIL USING RESEND API
+    // ===============================
+
+    const resendResponse = await fetch(
+      "https://api.resend.com/emails",
+      {
+        method: "POST",
+
+        headers: {
+          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+
+          from: "BG Technology <onboarding@resend.dev>",
+
+          to: [
+            process.env.GMAIL_USER || "bgantechnology@gmail.com"
+          ],
+
+          reply_to: email,
+
+          subject: `New Project Enquiry - ${name}`,
+
+          text: `
 New Project Enquiry
 ===================
 
@@ -104,15 +128,45 @@ ${message}
 
 ===================
 Sent from BG Technology website.
-      `,
-    });
+          `,
+        }),
+      }
+    );
+
+
+    // ===============================
+    // RESEND RESPONSE
+    // ===============================
+
+    const resendData = await resendResponse.json();
+
+
+    if (!resendResponse.ok) {
+
+      console.error(
+        "Resend email error:",
+        resendData
+      );
+
+      return res.status(500).json({
+        success: false,
+        message: "Unable to send enquiry.",
+      });
+
+    }
+
+
+    console.log(
+      "Email sent successfully:",
+      resendData
+    );
 
 
     // ===============================
     // SUCCESS
     // ===============================
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Enquiry sent successfully!",
     });
@@ -125,7 +179,7 @@ Sent from BG Technology website.
       error
     );
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Unable to send enquiry.",
     });
@@ -148,13 +202,13 @@ app.listen(PORT, () => {
   );
 
   console.log(
-    "Gmail account:",
-    process.env.GMAIL_USER
+    "Resend API key loaded:",
+    !!process.env.RESEND_API_KEY
   );
 
   console.log(
-    "App password loaded:",
-    !!process.env.GMAIL_APP_PASSWORD
+    "Receiving email:",
+    process.env.GMAIL_USER || "bgantechnology@gmail.com"
   );
 
 });
