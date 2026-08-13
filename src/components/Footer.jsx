@@ -110,25 +110,11 @@ function Footer() {
 
   <h4>Solutions</h4>
 
-  <a href="/services#web-development">
-    Web Development
-  </a>
-
-  <a href="/services#e-commerce">
-    E-Commerce
-  </a>
-
-  <a href="/services#custom-software">
-    Custom Software
-  </a>
-
-  <a href="/services#crm-erp">
-    CRM & ERP
-  </a>
-
-  <a href="/services#mobile-apps">
-    Mobile Apps
-  </a>
+ <a href="#services">Web Development</a>
+<a href="#services">E-Commerce</a>
+<a href="#services">Custom Software</a>
+<a href="#services">CRM & ERP</a>
+<a href="#services">Mobile Apps</a>
 
 </div>
 
