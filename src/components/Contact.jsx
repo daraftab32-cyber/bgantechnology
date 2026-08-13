@@ -188,7 +188,7 @@ function Contact() {
                   Email
                 </span>
 
-                <a href="mailto:hello@bgantechnology.com">
+                <a href="mailto:bgantechnology.com">
   hello@bgantechnology.com
 </a>
 
