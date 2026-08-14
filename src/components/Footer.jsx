@@ -74,7 +74,7 @@ function Footer() {
               <FaGithub />
             </a>
 
-            <a href="#" aria-label="Instagram">
+            <a href="https://www.instagram.com/mr_billu142?igsh=MTR4Z3dlYXpvOXZxaA==" aria-label="Instagram">
               <FaInstagram />
             </a>
 
